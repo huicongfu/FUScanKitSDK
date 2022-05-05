@@ -31,7 +31,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '9.0'
 
   s.vendored_frameworks = 'FUScanKitSDK/HWScanKitSDK/ScanKitFrameWork.framework'
-  s.source_files = 'FUScanKitSDK/HWScanKitSDK/**/*'
+  #s.source_files = 'FUScanKitSDK/HWScanKitSDK/**/*'
   
   s.resource_bundles = {
      'ScanKitFrameWorkBundle' => ['FUScanKitSDK/HWScanKitSDK/ScanKitFrameWorkBundle.bundle']
