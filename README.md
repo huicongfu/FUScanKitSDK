@@ -22,7 +22,7 @@ pod 'FUScanKitSDK'
 
 ## Author
 
-fuhuicong, fuhuicong@qq.com
+fuhc, fu_huicong@qq.com
 
 ## License
 

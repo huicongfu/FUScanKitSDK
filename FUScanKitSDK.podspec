@@ -34,7 +34,7 @@ Pod::Spec.new do |s|
   s.source_files = 'FUScanKitSDK/HWScanKitSDK/**/*'
   
   s.resource_bundles = {
-     'ScanKitFrameWorkBundle' => ['FUScanKitSDK/HWScanKitSDK/**/*']
+     'ScanKitFrameWorkBundle' => ['FUScanKitSDK/HWScanKitSDK/ScanKitFrameWorkBundle.bundle']
   }
 
   s.public_header_files = 'FUScanKitSDK/HWScanKitSDK/ScanKitFrameWork.framework/Headers/*.h'
