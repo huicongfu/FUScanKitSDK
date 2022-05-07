@@ -11,8 +11,15 @@
 @implementation FULanguageManager
 
 + (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName bundle:(NSBundle*)bundle {
+//    NSString * currentLanguage = @"zh-Hans"; // TODO: 切换多语言
+//    NSString * path = [bundle pathForResource:currentLanguage ofType:@"lproj"];
+//    if (!path) {
+//        NSAssert(NO, @"多语言文件不存在!");
+//        return @"";
+//    }
+//    NSBundle * findBundle = [NSBundle bundleWithPath:path];
     if (!bundle) {
-        NSAssert(NO, @"多语言Bundle文件不存在!");
+        NSAssert(NO, @"多语言文件bundle不存在!");
         return @"";
     }
     return [bundle localizedStringForKey:key value:value table:tableName];

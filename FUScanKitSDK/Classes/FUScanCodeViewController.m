@@ -12,7 +12,7 @@
 #import "FUScanKitSDKBundle.h"
 #import "FULanguageManager.h"
 
-#define FUScanCodeLanguage(key) [FULanguageManager localizedStringForKey:(key) value:key table:(@"FUScanKitSDKBundle") bundle:[FUScanKitSDKBundle FUScanKitSDKBundle]]
+#define FUScanCodeLanguage(key) [FULanguageManager localizedStringForKey:(key) value:key table:(@"FUScanKitSDKLanguage") bundle:[FUScanKitSDKBundle FUScanKitSDKBundle]]
 
 @interface FUScanCodeViewController ()
 
@@ -70,11 +70,11 @@
     self.btnAlbum.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [self.btnAlbum addTarget:self action:@selector(btnPhoto:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIImage *albumImage = [FUScanKitSDKBundle FUScanKitBundleImage:@"QRCScan_ Album"];
+    UIImage *albumImage = [FUScanKitSDKBundle FUScanKitBundleImage:@"QRCScan_Album"];
     [self.btnAlbum setImage:albumImage forState:UIControlStateNormal];
     [self.btnAlbum mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(76);
-        make.height.mas_equalTo(74);
+        make.height.mas_equalTo(76);
         make.centerY.mas_equalTo(self.bottomView.mas_centerY);
         make.left.mas_offset(margin);
     }];
@@ -106,7 +106,7 @@
     [self.btnLight addTarget:self action:@selector(btnLight:) forControlEvents:UIControlEventTouchUpInside];
     [self.btnLight mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(76);
-        make.height.mas_equalTo(74);
+        make.height.mas_equalTo(76);
         make.centerY.mas_equalTo(self.bottomView.mas_centerY);
         make.right.mas_offset(-margin);
     }];

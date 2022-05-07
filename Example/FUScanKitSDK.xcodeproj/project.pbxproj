@@ -14,10 +14,10 @@
 		3BFC72A12826189000FDF3C0 /* FUScanKitSDKBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BFC72A02826189000FDF3C0 /* FUScanKitSDKBundle.m */; };
 		3BFC72A428263F0B00FDF3C0 /* FULanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BFC72A328263F0B00FDF3C0 /* FULanguageManager.m */; };
 		3BFC72AD282646AD00FDF3C0 /* QRCScan_OffLight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BFC72A5282646AD00FDF3C0 /* QRCScan_OffLight@2x.png */; };
-		3BFC72AE282646AD00FDF3C0 /* QRCScan_ Album@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BFC72A6282646AD00FDF3C0 /* QRCScan_ Album@2x.png */; };
+		3BFC72AE282646AD00FDF3C0 /* QRCScan_Album@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BFC72A6282646AD00FDF3C0 /* QRCScan_Album@2x.png */; };
 		3BFC72AF282646AD00FDF3C0 /* QRCScan_OnLight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BFC72A7282646AD00FDF3C0 /* QRCScan_OnLight@2x.png */; };
 		3BFC72B0282646AD00FDF3C0 /* QRCScan_OnLigh@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BFC72A8282646AD00FDF3C0 /* QRCScan_OnLigh@3x.png */; };
-		3BFC72B1282646AD00FDF3C0 /* QRCScan_ Album@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BFC72A9282646AD00FDF3C0 /* QRCScan_ Album@3x.png */; };
+		3BFC72B1282646AD00FDF3C0 /* QRCScan_Album@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BFC72A9282646AD00FDF3C0 /* QRCScan_Album@3x.png */; };
 		3BFC72B2282646AD00FDF3C0 /* QRCScan_Input@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BFC72AA282646AD00FDF3C0 /* QRCScan_Input@2x.png */; };
 		3BFC72B3282646AD00FDF3C0 /* beep3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3BFC72AB282646AD00FDF3C0 /* beep3.mp3 */; };
 		3BFC72B4282646AD00FDF3C0 /* QRCScan_OffLight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BFC72AC282646AD00FDF3C0 /* QRCScan_OffLight@3x.png */; };
@@ -63,10 +63,10 @@
 		3BFC72A228263F0B00FDF3C0 /* FULanguageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FULanguageManager.h; sourceTree = "<group>"; };
 		3BFC72A328263F0B00FDF3C0 /* FULanguageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FULanguageManager.m; sourceTree = "<group>"; };
 		3BFC72A5282646AD00FDF3C0 /* QRCScan_OffLight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCScan_OffLight@2x.png"; sourceTree = "<group>"; };
-		3BFC72A6282646AD00FDF3C0 /* QRCScan_ Album@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCScan_ Album@2x.png"; sourceTree = "<group>"; };
+		3BFC72A6282646AD00FDF3C0 /* QRCScan_Album@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCScan_Album@2x.png"; sourceTree = "<group>"; };
 		3BFC72A7282646AD00FDF3C0 /* QRCScan_OnLight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCScan_OnLight@2x.png"; sourceTree = "<group>"; };
 		3BFC72A8282646AD00FDF3C0 /* QRCScan_OnLigh@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCScan_OnLigh@3x.png"; sourceTree = "<group>"; };
-		3BFC72A9282646AD00FDF3C0 /* QRCScan_ Album@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCScan_ Album@3x.png"; sourceTree = "<group>"; };
+		3BFC72A9282646AD00FDF3C0 /* QRCScan_Album@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCScan_Album@3x.png"; sourceTree = "<group>"; };
 		3BFC72AA282646AD00FDF3C0 /* QRCScan_Input@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCScan_Input@2x.png"; sourceTree = "<group>"; };
 		3BFC72AB282646AD00FDF3C0 /* beep3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep3.mp3; sourceTree = "<group>"; };
 		3BFC72AC282646AD00FDF3C0 /* QRCScan_OffLight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCScan_OffLight@3x.png"; sourceTree = "<group>"; };
@@ -167,8 +167,8 @@
 			isa = PBXGroup;
 			children = (
 				3BFC72AB282646AD00FDF3C0 /* beep3.mp3 */,
-				3BFC72A6282646AD00FDF3C0 /* QRCScan_ Album@2x.png */,
-				3BFC72A9282646AD00FDF3C0 /* QRCScan_ Album@3x.png */,
+				3BFC72A6282646AD00FDF3C0 /* QRCScan_Album@2x.png */,
+				3BFC72A9282646AD00FDF3C0 /* QRCScan_Album@3x.png */,
 				3BFC72AA282646AD00FDF3C0 /* QRCScan_Input@2x.png */,
 				3BFC72A5282646AD00FDF3C0 /* QRCScan_OffLight@2x.png */,
 				3BFC72AC282646AD00FDF3C0 /* QRCScan_OffLight@3x.png */,
@@ -356,7 +356,7 @@
 			files = (
 				3BFC72AD282646AD00FDF3C0 /* QRCScan_OffLight@2x.png in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
-				3BFC72AE282646AD00FDF3C0 /* QRCScan_ Album@2x.png in Resources */,
+				3BFC72AE282646AD00FDF3C0 /* QRCScan_Album@2x.png in Resources */,
 				3BFC729B282615CD00FDF3C0 /* FUScanKitSDKLanguage.strings in Resources */,
 				3BFC72B2282646AD00FDF3C0 /* QRCScan_Input@2x.png in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
@@ -365,7 +365,7 @@
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 				3BFC72AF282646AD00FDF3C0 /* QRCScan_OnLight@2x.png in Resources */,
 				3BFC72B0282646AD00FDF3C0 /* QRCScan_OnLigh@3x.png in Resources */,
-				3BFC72B1282646AD00FDF3C0 /* QRCScan_ Album@3x.png in Resources */,
+				3BFC72B1282646AD00FDF3C0 /* QRCScan_Album@3x.png in Resources */,
 				3BFC72B4282646AD00FDF3C0 /* QRCScan_OffLight@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
