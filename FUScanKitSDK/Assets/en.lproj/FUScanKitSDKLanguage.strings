@@ -1,0 +1,26 @@
+/* 
+  FUScanKitSDK.strings
+  FUScanKitSDK
+
+  Created by FuHuiCong 傅辉聪 on 2022/5/7.
+  Copyright © 2022 fuhuicong. All rights reserved.
+*/
+"LK_FUScanKitSDK_Album" = "Album";
+"LK_FUScanKitSDK_CameraBootFailure" = "Failed to start camera";
+"LK_FUScanKitSDK_CameraErrorPrompt" = "1.The camera is not available \n2.App is not allowed to access the camera, please allow it.";
+"LK_FUScanKitSDK_ContactInfo" = "Contact Information";
+"LK_FUScanKitSDK_LightOff" = "Light Off";
+"LK_FUScanKitSDK_LightOn" = "Turn on the light";
+"LK_FUScanKitSDK_Loading" = "Loading...";
+"LK_FUScanKitSDK_NotContainQRCode" = "This picture does not contain an QR code";
+"LK_FUScanKitSDK_OK" = "yes";
+"LK_FUScanKitSDK_Cancel" = "Cancel";
+"LK_FUScanKitSDK_PhotoAlbumAuthority" = "It's not allowed to access the album, please check the setttings";
+"LK_FUScanKitSDK_Prompt" = "tips";
+"LK_FUScanKitSDK_QRCodeOperatioGuide" = "Align QR code/barcode within frame to scan";
+"LK_FUScanKitSDK_QRPictureNoClear" = "Please check whether the picture contains QR code and is clear";
+"LK_FUScanKitSDK_Scan" = "Scan";
+"LK_FUScanKitSDK_ScanSuspended" = "Scan stopped, double click the screen to continue";
+"LK_FUScanKitSDK_unableResolveQRCode" = "Unable to resolve the QR code";
+"LK_FUScanKitSDK_UnIdentify" = "Cannot extract the QR code";
+"LK_FUScanKitSDK_Retry" = "retry";

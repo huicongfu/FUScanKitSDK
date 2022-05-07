@@ -1,0 +1,31 @@
+PODS:
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
+    - FBSnapshotTestCase/Core
+  - FUScanKitSDK (0.1.0):
+    - Masonry (~> 1.1.0)
+  - Masonry (1.1.0)
+
+DEPENDENCIES:
+  - FBSnapshotTestCase
+  - FUScanKitSDK (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - FBSnapshotTestCase
+    - Masonry
+
+EXTERNAL SOURCES:
+  FUScanKitSDK:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
+  FUScanKitSDK: 648749bbf3809a0df31c6d6ddfb888daf8d8f690
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+
+PODFILE CHECKSUM: c06a1e1b822ec4ec404be7f0b009c17d05ee9a5f
+
+COCOAPODS: 1.11.2

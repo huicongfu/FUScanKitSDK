@@ -7,6 +7,7 @@
 //
 
 #import "FUViewController.h"
+#import "FUScanCodeViewController.h"
 
 @interface FUViewController ()
 
@@ -18,6 +19,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+}
+- (IBAction)scanButtonAction:(UIButton *)sender {
+    FUScanCodeViewController * scanCodeVC = [[FUScanCodeViewController alloc] init];
+    [self.navigationController pushViewController:scanCodeVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning

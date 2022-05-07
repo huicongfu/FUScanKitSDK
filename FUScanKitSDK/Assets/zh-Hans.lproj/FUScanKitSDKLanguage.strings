@@ -1,0 +1,27 @@
+/* 
+  FUScanKitSDK.strings
+  FUScanKitSDK
+
+  Created by FuHuiCong 傅辉聪 on 2022/5/7.
+  Copyright © 2022 fuhuicong. All rights reserved.
+*/
+"LK_FUScanKitSDK_Album" = "相册";
+"LK_FUScanKitSDK_CameraBootFailure" = "摄像头启动失败";
+"LK_FUScanKitSDK_CameraErrorPrompt" = "1、摄像头硬件不可用 \n2、没授权App访问摄像头资源，请授权";
+"LK_FUScanKitSDK_ContactInfo" = "联系信息";
+"LK_FUScanKitSDK_LightOff" = "关灯";
+"LK_FUScanKitSDK_LightOn" = "开灯";
+"LK_FUScanKitSDK_Loading" = "加载中...";
+"LK_FUScanKitSDK_NotContainQRCode" = "该图片未包含二维码";
+"LK_FUScanKitSDK_OK" = "确定";
+"LK_FUScanKitSDK_Cancel" = "取消";
+"LK_FUScanKitSDK_PhotoAlbumAuthority" = "未开启访问相册权限，请检查设置";
+"LK_FUScanKitSDK_Prompt" = "提示";
+"LK_FUScanKitSDK_QRCodeOperatioGuide" = "对准二维码/条码，即可自动扫描";
+"LK_FUScanKitSDK_QRPictureNoClear" = "请检查图片是否包含二维码，二维码图片是否清晰";
+"LK_FUScanKitSDK_Scan" = "扫一扫";
+"LK_FUScanKitSDK_ScanSuspended" = "扫描已暂停,双击屏幕继续扫描";
+"LK_FUScanKitSDK_unableResolveQRCode" = "无法解析二维码";
+"LK_FUScanKitSDK_UnIdentify" = "无法识别此二维码";
+"LK_FUScanKitSDK_Retry" = "重试";
+"LK_FUScanKitSDK_Input" = "手动输入";

@@ -1,22 +1,36 @@
 {
   "name": "FUScanKitSDK",
   "version": "0.1.0",
-  "summary": "A short description of FUScanKitSDK.",
-  "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/fuhuicong/FUScanKitSDK",
+  "summary": "FUScanKitSDK是基于华为统一扫码服务（Scan Kit）提供便捷的条形码和二维码扫描、解析、生成能力，帮助您快速构建应用内的扫码功能。",
+  "description": "得益于华为在计算机视觉领域能力的积累，ScanKit可以实现远距离码或小型码的检测和自动放大，同时针对常见复杂扫码场景（如反光、暗光、污损、模糊、柱面）做了针对性识别优化，提升扫码成功率与用户体验。",
+  "homepage": "https://github.com/huicongfu/FUScanKitSDK",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "fuhuicong": "fuhuicong@qq.com"
+    "fuhc": "fu_huicong@qq.com"
   },
   "source": {
-    "git": "https://github.com/fuhuicong/FUScanKitSDK.git",
+    "git": "https://github.com/huicongfu/FUScanKitSDK.git",
     "tag": "0.1.0"
   },
   "platforms": {
     "ios": "9.0"
   },
-  "source_files": "FUScanKitSDK/Classes/**/*"
+  "vendored_frameworks": "FUScanKitSDK/HWScanKitSDK/ScanKitFrameWork.framework",
+  "resource_bundles": {
+    "ScanKitFrameWorkBundle": [
+      "FUScanKitSDK/HWScanKitSDK/ScanKitFrameWorkBundle.bundle"
+    ],
+    "FUScanKitSDKBundle": [
+      "FUScanKitSDK/Assets/**/*"
+    ]
+  },
+  "public_header_files": "FUScanKitSDK/HWScanKitSDK/ScanKitFrameWork.framework/Headers/*.h",
+  "dependencies": {
+    "Masonry": [
+      "~> 1.1.0"
+    ]
+  }
 }

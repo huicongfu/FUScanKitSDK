@@ -34,10 +34,11 @@ Pod::Spec.new do |s|
   #s.source_files = 'FUScanKitSDK/HWScanKitSDK/**/*'
   
   s.resource_bundles = {
-     'ScanKitFrameWorkBundle' => ['FUScanKitSDK/HWScanKitSDK/ScanKitFrameWorkBundle.bundle']
+     'ScanKitFrameWorkBundle' => ['FUScanKitSDK/HWScanKitSDK/ScanKitFrameWorkBundle.bundle'],
+     'FUScanKitSDKBundle' => ['FUScanKitSDK/Assets/**/*'],
   }
 
   s.public_header_files = 'FUScanKitSDK/HWScanKitSDK/ScanKitFrameWork.framework/Headers/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'Masonry', '~> 1.1.0'
 end
