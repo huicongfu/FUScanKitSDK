@@ -14,7 +14,10 @@
     static NSBundle * bundle = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        bundle = [NSBundle bundleWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"FUScanKitSDKBundle" ofType:@"bundle"]];
+        NSBundle * selfClassBundle = [NSBundle bundleForClass:[self class]];
+        NSString * path = [selfClassBundle pathForResource:@"FUScanKitSDKBundle" ofType:@"bundle"];
+        bundle = [NSBundle bundleWithPath:path];
+        bundle = bundle ? bundle : selfClassBundle;
     });
     return bundle;
 }

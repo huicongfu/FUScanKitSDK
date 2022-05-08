@@ -1,0 +1,6 @@
+framework module FUScanKitSDK {
+  umbrella header "FUScanKitSDK-umbrella.h"
+
+  export *
+  module * { export * }
+}

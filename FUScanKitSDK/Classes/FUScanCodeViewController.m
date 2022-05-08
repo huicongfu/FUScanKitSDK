@@ -11,10 +11,12 @@
 #import "UIDevice+FUAddition.h"
 #import "FUScanKitSDKBundle.h"
 #import "FULanguageManager.h"
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <AVFoundation/AVFoundation.h>
 
 #define FUScanCodeLanguage(key) [FULanguageManager localizedStringForKey:(key) value:key table:(@"FUScanKitSDKLanguage") bundle:[FUScanKitSDKBundle FUScanKitSDKBundle]]
 
-@interface FUScanCodeViewController ()
+@interface FUScanCodeViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) UIView * captureContainerView;
 @property (strong, nonatomic) UIView * bottomView;
@@ -70,7 +72,7 @@
     self.btnAlbum.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [self.btnAlbum addTarget:self action:@selector(btnPhoto:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIImage *albumImage = [FUScanKitSDKBundle FUScanKitBundleImage:@"QRCScan_Album"];
+    UIImage *albumImage = [UIImage imageNamed:@"QRCScan_Album"];//[FUScanKitSDKBundle FUScanKitBundleImage:@"QRCScan_Album"];
     [self.btnAlbum setImage:albumImage forState:UIControlStateNormal];
     [self.btnAlbum mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(76);
@@ -124,6 +126,55 @@
     }];
 }
 
+- (void)btnPhoto:(UIButton *)sender
+{
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) { //判断设备是否支持相册
+        
+        UIAlertController * alertVC = [UIAlertController alertControllerWithTitle:FUScanCodeLanguage(@"LK_FUScanKitSDK_Prompt") message:FUScanCodeLanguage(@"LK_FUScanKitSDK_PhotoAlbumAuthority") preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * okAction = [UIAlertAction actionWithTitle:FUScanCodeLanguage(@"LK_FUScanKitSDK_OK") style:UIAlertActionStyleDefault handler:nil];
+        [alertVC addAction:okAction];
+        [self presentViewController:alertVC animated:YES completion:nil];
+        return;
+    }
+    
+    UIImagePickerController * picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.mediaTypes = @[(NSString *)kUTTypeImage];
+    picker.allowsEditing = NO;
+    picker.delegate = self;
+    if (@available(iOS 13.0, *)) {
+        picker.modalPresentationStyle = UIModalPresentationFullScreen;
+    }
+    [self presentViewController:picker animated:YES completion:^{
+        
+    }];
+    
+
+}
+
+- (void)btnLight:(UIButton *)sender {
+    sender.selected = !sender.selected;
+    if (sender.isSelected) {
+        self.btnLightTitleLabel.text = FUScanCodeLanguage(@"LK_FUScanKitSDK_LightOff");
+    } else {
+        self.btnLightTitleLabel.text = FUScanCodeLanguage(@"LK_FUScanKitSDK_LightOn");
+    }
+    Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
+    if (captureDeviceClass != nil) {
+        AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        if ([device hasTorch] && [device hasFlash]){
+            [device lockForConfiguration:nil];
+            if (sender.selected) {
+                [device setTorchMode:AVCaptureTorchModeOn];
+                [device setFlashMode:AVCaptureFlashModeOn];
+            } else {
+                [device setTorchMode:AVCaptureTorchModeOff];
+                [device setFlashMode:AVCaptureFlashModeOff];
+            }
+            [device unlockForConfiguration];
+        }
+    }
+}
 
 - (CGFloat)getBottomHeight{
     return [UIDevice safeDistanceBottom]+96;

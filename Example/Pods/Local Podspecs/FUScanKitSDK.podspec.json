@@ -19,6 +19,7 @@
     "ios": "9.0"
   },
   "vendored_frameworks": "FUScanKitSDK/HWScanKitSDK/ScanKitFrameWork.framework",
+  "source_files": "FUScanKitSDK/Classes/**/*",
   "resource_bundles": {
     "ScanKitFrameWorkBundle": [
       "FUScanKitSDK/HWScanKitSDK/ScanKitFrameWorkBundle.bundle"
