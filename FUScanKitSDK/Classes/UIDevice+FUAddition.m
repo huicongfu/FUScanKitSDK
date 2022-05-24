@@ -71,4 +71,9 @@
     return [UIDevice statusBarHeight] + [UIDevice safeDistanceBottom];
 }
 
+/// 是否是iPad
++ (BOOL)getIsIpad {
+    return [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad;
+}
+
 @end

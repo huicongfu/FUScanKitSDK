@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1A6CD4C148BBB197415DAAA5 /* Pods_FUScanKitSDK_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9216CE8461E410B639ED3F3 /* Pods_FUScanKitSDK_Example.framework */; };
+		3B714720282A411F0034365C /* FUScanCoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B71471F282A411F0034365C /* FUScanCoreManager.m */; };
 		3BFC71B02824C0EB00FDF3C0 /* FUScanCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BFC71AF2824C0EB00FDF3C0 /* FUScanCodeViewController.m */; };
 		3BFC72972825267600FDF3C0 /* UIDevice+FUAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BFC72962825267500FDF3C0 /* UIDevice+FUAddition.m */; };
 		3BFC729B282615CD00FDF3C0 /* FUScanKitSDKLanguage.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3BFC729D282615CD00FDF3C0 /* FUScanKitSDKLanguage.strings */; };
@@ -51,6 +52,8 @@
 
 /* Begin PBXFileReference section */
 		22D167E2B1680E4A8E328AB1 /* Pods_FUScanKitSDK_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FUScanKitSDK_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B71471E282A411F0034365C /* FUScanCoreManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FUScanCoreManager.h; sourceTree = "<group>"; };
+		3B71471F282A411F0034365C /* FUScanCoreManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FUScanCoreManager.m; sourceTree = "<group>"; };
 		3BFC71AE2824C0EB00FDF3C0 /* FUScanCodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FUScanCodeViewController.h; sourceTree = "<group>"; };
 		3BFC71AF2824C0EB00FDF3C0 /* FUScanCodeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FUScanCodeViewController.m; sourceTree = "<group>"; };
 		3BFC72952825267500FDF3C0 /* UIDevice+FUAddition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIDevice+FUAddition.h"; sourceTree = "<group>"; };
@@ -159,6 +162,8 @@
 				3BFC72A02826189000FDF3C0 /* FUScanKitSDKBundle.m */,
 				3BFC72A228263F0B00FDF3C0 /* FULanguageManager.h */,
 				3BFC72A328263F0B00FDF3C0 /* FULanguageManager.m */,
+				3B71471E282A411F0034365C /* FUScanCoreManager.h */,
+				3B71471F282A411F0034365C /* FUScanCoreManager.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -322,6 +327,9 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = fuhuicong;
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = B3ANQHR3G9;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -473,6 +481,7 @@
 			files = (
 				6003F59E195388D20070C39A /* FUAppDelegate.m in Sources */,
 				3BFC72A428263F0B00FDF3C0 /* FULanguageManager.m in Sources */,
+				3B714720282A411F0034365C /* FUScanCoreManager.m in Sources */,
 				6003F5A7195388D20070C39A /* FUViewController.m in Sources */,
 				3BFC72972825267600FDF3C0 /* UIDevice+FUAddition.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
@@ -615,12 +624,14 @@
 			baseConfigurationReference = B57B3EF124B6D10D6EB4AB4F /* Pods-FUScanKitSDK_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = B3ANQHR3G9;
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FUScanKitSDK/FUScanKitSDK-Prefix.pch";
 				INFOPLIST_FILE = "FUScanKitSDK/FUScanKitSDK-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fhc.FUScanKitSDK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = app;
@@ -632,12 +643,14 @@
 			baseConfigurationReference = ABDEE9A24CE2F06BA71E53E5 /* Pods-FUScanKitSDK_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = B3ANQHR3G9;
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FUScanKitSDK/FUScanKitSDK-Prefix.pch";
 				INFOPLIST_FILE = "FUScanKitSDK/FUScanKitSDK-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fhc.FUScanKitSDK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = app;

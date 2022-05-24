@@ -33,6 +33,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 底部导航栏高度（包括安全区）
 + (CGFloat)tabBarFullHeight;
 
+/// 是否是iPad
++ (BOOL)getIsIpad;
+
 @end
 
 NS_ASSUME_NONNULL_END

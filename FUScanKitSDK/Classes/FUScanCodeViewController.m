@@ -13,25 +13,38 @@
 #import "FULanguageManager.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AVFoundation/AVFoundation.h>
+#import "FUScanCoreManager.h"
 
 #define FUScanCodeLanguage(key) [FULanguageManager localizedStringForKey:(key) value:key table:(@"FUScanKitSDKLanguage") bundle:[FUScanKitSDKBundle FUScanKitSDKBundle]]
 
 @interface FUScanCodeViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
-@property (strong, nonatomic) UIView * captureContainerView;
-@property (strong, nonatomic) UIView * bottomView;
-@property (strong, nonatomic) UIButton * btnAlbum;
-@property (strong, nonatomic) UILabel  * btnAlbumTitleLabel;
-@property (strong, nonatomic) UIButton * btnInput;
-@property (strong, nonatomic) UILabel  * btnInputTitleLabel;
-@property (strong, nonatomic) UIButton * btnLight;
-@property (strong, nonatomic) UILabel  * btnLightTitleLabel;
-@property (nonatomic,strong) UILabel * labRemind;
-@property (nonatomic,strong) UILabel * labPrompt;
+@property (retain, nonatomic) UIView * captureContainerView;
+@property (retain, nonatomic) UIView * bottomView;
+@property (retain, nonatomic) UIButton * btnAlbum;
+@property (retain, nonatomic) UILabel  * btnAlbumTitleLabel;
+@property (retain, nonatomic) UIButton * btnInput;
+@property (retain, nonatomic) UILabel  * btnInputTitleLabel;
+@property (retain, nonatomic) UIButton * btnLight;
+@property (retain, nonatomic) UILabel  * btnLightTitleLabel;
+@property (nonatomic, retain) UILabel * labRemindretain;
+@property (nonatomic, retain) UILabel * labPrompt;
+
+@property (nonatomic, retain) FUScanCoreManager * scanCoreManager;
+@property (nonatomic, assign) CGRect scanRect;
+///是否横屏，YES:横屏屏；NO:竖屏
+@property (nonatomic, assign) BOOL isLandScapeMode;
+@property (nonatomic,assign)UIInterfaceOrientation preUIInterfaceOrientation;
 
 @end
 
 @implementation FUScanCodeViewController
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.preUIInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,6 +61,47 @@
     }];
     
     [self createBottomViewUI];
+    [self initScanCoreManager];
+    __weak typeof(self) weakSelf = self;
+    [self checkCameraAuthorization:^(BOOL granted) {
+        if (granted) {
+            [weakSelf.scanCoreManager startSession];
+        } else {
+            [weakSelf showNoCameraAuthorizationAlert];
+        }
+    }];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didChangeRotate:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+}
+
+- (void)showNoCameraAuthorizationAlert {
+    UIAlertController * alertVC = [UIAlertController alertControllerWithTitle:FUScanCodeLanguage(@"LK_FUScanKitSDK_Prompt") message:FUScanCodeLanguage(@"LK_FUScanKitSDK_CameraErrorPrompt") preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction * okAction = [UIAlertAction actionWithTitle:FUScanCodeLanguage(@"LK_FUScanKitSDK_GoToSetting") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+        if ([[UIApplication sharedApplication] canOpenURL:url]) {
+            if (@available(iOS 10.0, *)) {
+                [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+            } else {
+                [[UIApplication sharedApplication] openURL:url];
+            }
+        }
+    }];
+    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:FUScanCodeLanguage(@"LK_FUScanKitSDK_Cancel") style:UIAlertActionStyleCancel handler:nil];
+    [alertVC addAction:okAction];
+    [alertVC addAction:cancelAction];
+    [self presentViewController:alertVC animated:YES completion:nil];
+}
+
+- (void)initScanCoreManager {
+    if (!self.scanCoreManager) {
+        self.scanCoreManager = [[FUScanCoreManager alloc] init];
+    }
+    self.scanCoreManager.scanRect = self.scanRect;
+    [self.scanCoreManager initCaptureView:self.captureContainerView];
+    self.scanCoreManager.curOrientaion = [UIApplication sharedApplication].statusBarOrientation;
+    self.scanCoreManager.resultBlock = ^(NSString * _Nonnull resultString) {
+        NSLog(@"%@", resultString);
+    };
 }
 
 - (void)createBottomViewUI {
@@ -148,7 +202,6 @@
     [self presentViewController:picker animated:YES completion:^{
         
     }];
-    
 
 }
 
@@ -176,8 +229,102 @@
     }
 }
 
+- (void)didChangeRotate:(NSNotification*)notifi {
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+}
+
 - (CGFloat)getBottomHeight{
     return [UIDevice safeDistanceBottom]+96;
+}
+
+- (BOOL)isLandScapeMode{
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
+        //横屏
+        _isLandScapeMode = YES;
+    }
+    if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown ) {
+        //竖屏
+        _isLandScapeMode = NO;
+    }
+    return _isLandScapeMode;
+}
+
+/**
+ *  扫描范围
+ */
+- (CGRect)scanRect
+{
+    if (CGRectEqualToRect(_scanRect,CGRectZero)) {
+        if ([UIDevice getIsIpad]) {
+            if (self.isLandScapeMode) {
+                //横屏
+                _scanRect = [self getScanRectWhenInLandscape];
+            }else{
+                //竖屏
+                _scanRect = [self getScanRectWhenInProtation];
+            }
+        } else {
+            _scanRect = [self getScanRect];
+        }
+    }
+    return _scanRect;
+}
+
+- (CGRect)getScanRect {
+    CGFloat captureWidth = [UIApplication sharedApplication].keyWindow.bounds.size.width;
+    CGFloat captureHeight = [UIApplication sharedApplication].keyWindow.bounds.size.height - [self getBottomHeight] - [UIDevice navigationFullHeight];
+    return CGRectMake((captureWidth - 300)/2.0, (captureHeight - 300)/2.0, 300, 300);
+}
+
+- (CGRect)getScanRectWhenInLandscape {
+    CGFloat windowWidth = [UIApplication sharedApplication].keyWindow.bounds.size.width;
+    CGFloat windowHeight = [UIApplication sharedApplication].keyWindow.bounds.size.height - [self getBottomHeight] - [UIDevice navigationFullHeight];
+    return CGRectMake((windowWidth - 300)/2, (windowHeight - 300)/2, 300, 300);
+}
+
+- (CGRect)getScanRectWhenInProtation {
+    CGFloat captureWidth = [UIApplication sharedApplication].keyWindow.bounds.size.width;
+    CGFloat captureHeight = [UIApplication sharedApplication].keyWindow.bounds.size.height - [self getBottomHeight] - [UIDevice navigationFullHeight];
+    return CGRectMake((captureWidth - 300)/2.0, (captureHeight - 300)/2.0, 300, 300);
+}
+
+- (void)checkCameraAuthorization:(void (^)(BOOL granted))completionHandler {
+    BOOL canWork = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] && [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear];
+    if (canWork) {
+        AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        switch (authStatus) {
+            case AVAuthorizationStatusNotDetermined:
+            {
+                [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (completionHandler) {
+                            completionHandler(granted);
+                        }
+                    });
+                }];
+                return;
+            }
+                break;
+            case AVAuthorizationStatusRestricted:
+            case AVAuthorizationStatusDenied:
+            {
+                canWork = NO;
+            }
+                break;
+            case AVAuthorizationStatusAuthorized:
+            {
+                canWork = YES;
+            }
+                break;
+            default:
+                break;
+        }
+        if (completionHandler) {
+            completionHandler(canWork);
+        }
+    }
+    
 }
 
 /*

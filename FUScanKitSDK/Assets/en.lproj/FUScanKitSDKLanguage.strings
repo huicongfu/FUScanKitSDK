@@ -24,3 +24,4 @@
 "LK_FUScanKitSDK_unableResolveQRCode" = "Unable to resolve the QR code";
 "LK_FUScanKitSDK_UnIdentify" = "Cannot extract the QR code";
 "LK_FUScanKitSDK_Retry" = "retry";
+"LK_FUScanKitSDK_GoToSetting" = "Go to settings";

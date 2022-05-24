@@ -7,7 +7,7 @@
 */
 "LK_FUScanKitSDK_Album" = "相册";
 "LK_FUScanKitSDK_CameraBootFailure" = "摄像头启动失败";
-"LK_FUScanKitSDK_CameraErrorPrompt" = "1、摄像头硬件不可用 \n2、没授权App访问摄像头资源，请授权";
+"LK_FUScanKitSDK_CameraErrorPrompt" = "1、摄像头硬件不可用 \n2、没授权App访问摄像头，请授权";
 "LK_FUScanKitSDK_ContactInfo" = "联系信息";
 "LK_FUScanKitSDK_LightOff" = "关灯";
 "LK_FUScanKitSDK_LightOn" = "开灯";
@@ -25,3 +25,4 @@
 "LK_FUScanKitSDK_UnIdentify" = "无法识别此二维码";
 "LK_FUScanKitSDK_Retry" = "重试";
 "LK_FUScanKitSDK_Input" = "手动输入";
+"LK_FUScanKitSDK_GoToSetting" = "去设置";
