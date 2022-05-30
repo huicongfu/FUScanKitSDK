@@ -20,6 +20,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<FUScanCodeDelegate> delegate;
 
+/**
+ 扫码识别之后是否声音提示
+ */
+@property (nonatomic, assign) BOOL hasSound;
+
+/**
+ 扫码识别之后是否震动
+ */
+@property (nonatomic, assign) BOOL hasShake;
+
 @end
 
 NS_ASSUME_NONNULL_END

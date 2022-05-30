@@ -34,7 +34,9 @@
 @property (nonatomic, assign) CGRect scanRect;
 ///是否横屏，YES:横屏屏；NO:竖屏
 @property (nonatomic, assign) BOOL isLandScapeMode;
-@property (nonatomic,assign)UIInterfaceOrientation preUIInterfaceOrientation;
+@property (nonatomic, assign)UIInterfaceOrientation preUIInterfaceOrientation;
+
+@property (nonatomic, assign) SystemSoundID beepSound;
 
 @end
 
@@ -48,7 +50,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _beepSound = -1;
+    self.hasShake = YES;
+    self.hasSound = YES;
     [self createUI];
 }
 
@@ -92,6 +96,7 @@
 }
 
 - (void)handleScanResult:(NSString *)scanResult {
+    [self playBeepSound];
     if ([self.delegate respondsToSelector:@selector(scanViewController:recognizeResult:)]) {
         [self.delegate scanViewController:self recognizeResult:scanResult];
         [self.navigationController popViewControllerAnimated:YES];
@@ -232,6 +237,22 @@
     
 }
 
+- (void)playBeepSound {
+    if (self.beepSound != -1) {
+        if (self.hasShake) {
+            AudioServicesPlayAlertSound(self.beepSound); // 带震动
+        } else if(self.hasShake && !self.hasSound) {
+            AudioServicesPlaySystemSound(self.beepSound);
+        }
+    }
+}
+
+- (void)removeBeepSound {
+    if (_beepSound != -1) {
+        AudioServicesDisposeSystemSoundID(_beepSound);
+    }
+}
+
 - (void)showNoCameraAuthorizationAlert {
     UIAlertController * alertVC = [UIAlertController alertControllerWithTitle:FUScanCodeLanguage(@"LK_FUScanKitSDK_Prompt") message:FUScanCodeLanguage(@"LK_FUScanKitSDK_CameraErrorPrompt") preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction * okAction = [UIAlertAction actionWithTitle:FUScanCodeLanguage(@"LK_FUScanKitSDK_GoToSetting") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -248,6 +269,17 @@
     [alertVC addAction:okAction];
     [alertVC addAction:cancelAction];
     [self presentViewController:alertVC animated:YES completion:nil];
+}
+
+- (SystemSoundID)beepSound {
+    if (_beepSound == -1) {
+        NSURL * soundFileUrl = [[FUScanKitSDKBundle FUScanKitSDKBundle] URLForResource:@"beep3" withExtension:@"mp3"];
+        OSStatus error = AudioServicesCreateSystemSoundID((__bridge CFURLRef _Nonnull)(soundFileUrl), &_beepSound);
+        if (error != kAudioServicesNoError) {
+            _beepSound = -1; // 加载音频失败
+        }
+    }
+    return _beepSound;
 }
 
 - (CGFloat)getBottomHeight{
@@ -342,6 +374,10 @@
         }
     }
     
+}
+
+- (void)dealloc {
+    [self removeBeepSound];
 }
 
 /*
