@@ -52,6 +52,8 @@
 
 /* Begin PBXFileReference section */
 		22D167E2B1680E4A8E328AB1 /* Pods_FUScanKitSDK_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FUScanKitSDK_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B0B97F5283F77B000077C1A /* ScanKitFrameWork */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = ScanKitFrameWork; path = ../FUScanKitSDK/HWScanKitSDK/ScanKitFrameWork.framework/ScanKitFrameWork; sourceTree = "<group>"; };
+		3B0B97F7283F77C400077C1A /* ScanKitFrameWork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScanKitFrameWork.framework; path = ../FUScanKitSDK/HWScanKitSDK/ScanKitFrameWork.framework; sourceTree = "<group>"; };
 		3B71471E282A411F0034365C /* FUScanCoreManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FUScanCoreManager.h; sourceTree = "<group>"; };
 		3B71471F282A411F0034365C /* FUScanCoreManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FUScanCoreManager.m; sourceTree = "<group>"; };
 		3BFC71AE2824C0EB00FDF3C0 /* FUScanCodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FUScanCodeViewController.h; sourceTree = "<group>"; };
@@ -208,6 +210,8 @@
 		6003F58C195388D20070C39A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3B0B97F7283F77C400077C1A /* ScanKitFrameWork.framework */,
+				3B0B97F5283F77B000077C1A /* ScanKitFrameWork */,
 				6003F58D195388D20070C39A /* Foundation.framework */,
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
@@ -623,14 +627,17 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B57B3EF124B6D10D6EB4AB4F /* Pods-FUScanKitSDK_Example.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = B3ANQHR3G9;
 				ENABLE_BITCODE = NO;
+				EXCLUDED_ARCHS = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FUScanKitSDK/FUScanKitSDK-Prefix.pch";
 				INFOPLIST_FILE = "FUScanKitSDK/FUScanKitSDK-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MODULE_NAME = ExampleApp;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fhc.FUScanKitSDK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -642,9 +649,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = ABDEE9A24CE2F06BA71E53E5 /* Pods-FUScanKitSDK_Example.release.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = B3ANQHR3G9;
 				ENABLE_BITCODE = NO;
+				EXCLUDED_ARCHS = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FUScanKitSDK/FUScanKitSDK-Prefix.pch";
 				INFOPLIST_FILE = "FUScanKitSDK/FUScanKitSDK-Info.plist";

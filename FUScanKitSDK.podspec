@@ -41,4 +41,5 @@ Pod::Spec.new do |s|
   s.public_header_files = 'FUScanKitSDK/HWScanKitSDK/ScanKitFrameWork.framework/Headers/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'Masonry', '~> 1.1.0'
+#  s.dependency 'ScanKitFrameWork', '~> 1.1.0.302'
 end

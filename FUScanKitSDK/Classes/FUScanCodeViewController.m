@@ -53,13 +53,11 @@
 }
 
 - (void)createUI {
-    self.captureContainerView = [[UIView alloc] init];
+    CGFloat bottomHeight = [self getBottomHeight];
+    self.captureContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - bottomHeight)];
     self.captureContainerView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.captureContainerView];
-    [self.captureContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, [self getBottomHeight], 0));
-    }];
-    
+
     [self createBottomViewUI];
     [self initScanCoreManager];
     __weak typeof(self) weakSelf = self;
@@ -74,24 +72,6 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didChangeRotate:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
 }
 
-- (void)showNoCameraAuthorizationAlert {
-    UIAlertController * alertVC = [UIAlertController alertControllerWithTitle:FUScanCodeLanguage(@"LK_FUScanKitSDK_Prompt") message:FUScanCodeLanguage(@"LK_FUScanKitSDK_CameraErrorPrompt") preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction * okAction = [UIAlertAction actionWithTitle:FUScanCodeLanguage(@"LK_FUScanKitSDK_GoToSetting") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-        if ([[UIApplication sharedApplication] canOpenURL:url]) {
-            if (@available(iOS 10.0, *)) {
-                [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
-            } else {
-                [[UIApplication sharedApplication] openURL:url];
-            }
-        }
-    }];
-    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:FUScanCodeLanguage(@"LK_FUScanKitSDK_Cancel") style:UIAlertActionStyleCancel handler:nil];
-    [alertVC addAction:okAction];
-    [alertVC addAction:cancelAction];
-    [self presentViewController:alertVC animated:YES completion:nil];
-}
-
 - (void)initScanCoreManager {
     if (!self.scanCoreManager) {
         self.scanCoreManager = [[FUScanCoreManager alloc] init];
@@ -99,9 +79,23 @@
     self.scanCoreManager.scanRect = self.scanRect;
     [self.scanCoreManager initCaptureView:self.captureContainerView];
     self.scanCoreManager.curOrientaion = [UIApplication sharedApplication].statusBarOrientation;
+    __weak typeof(self) weakSelf = self;
     self.scanCoreManager.resultBlock = ^(NSString * _Nonnull resultString) {
         NSLog(@"%@", resultString);
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        if (resultString.length <= 0) {
+            return;
+        }
+        [strongSelf handleScanResult:resultString];
+        [weakSelf.scanCoreManager stopSession];
     };
+}
+
+- (void)handleScanResult:(NSString *)scanResult {
+    if ([self.delegate respondsToSelector:@selector(scanViewController:recognizeResult:)]) {
+        [self.delegate scanViewController:self recognizeResult:scanResult];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)createBottomViewUI {
@@ -231,6 +225,29 @@
 
 - (void)didChangeRotate:(NSNotification*)notifi {
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    if (self.preUIInterfaceOrientation == orientation) {
+        return;
+    }
+    self.preUIInterfaceOrientation = orientation;
+    
+}
+
+- (void)showNoCameraAuthorizationAlert {
+    UIAlertController * alertVC = [UIAlertController alertControllerWithTitle:FUScanCodeLanguage(@"LK_FUScanKitSDK_Prompt") message:FUScanCodeLanguage(@"LK_FUScanKitSDK_CameraErrorPrompt") preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction * okAction = [UIAlertAction actionWithTitle:FUScanCodeLanguage(@"LK_FUScanKitSDK_GoToSetting") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+        if ([[UIApplication sharedApplication] canOpenURL:url]) {
+            if (@available(iOS 10.0, *)) {
+                [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+            } else {
+                [[UIApplication sharedApplication] openURL:url];
+            }
+        }
+    }];
+    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:FUScanCodeLanguage(@"LK_FUScanKitSDK_Cancel") style:UIAlertActionStyleCancel handler:nil];
+    [alertVC addAction:okAction];
+    [alertVC addAction:cancelAction];
+    [self presentViewController:alertVC animated:YES completion:nil];
 }
 
 - (CGFloat)getBottomHeight{

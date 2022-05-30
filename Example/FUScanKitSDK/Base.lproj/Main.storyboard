@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,15 +24,42 @@
                                 <rect key="frame" x="62" y="128" width="251" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" title="扫一扫界面"/>
+                                <buttonConfiguration key="configuration" style="gray" title="自定义扫一扫界面"/>
                                 <connections>
                                     <action selector="scanButtonAction:" destination="whP-gf-Uak" eventType="touchUpInside" id="B0Y-du-KHB"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W2F-si-4Yh">
+                                <rect key="frame" x="62" y="201" width="251" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" title="Default View Mode"/>
+                                <connections>
+                                    <action selector="defaultViewButtonAction:" destination="whP-gf-Uak" eventType="touchUpInside" id="hMb-tK-1hZ"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="y5Y-X1-Isf">
+                                <rect key="frame" x="10" y="457" width="355" height="130"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="130" id="tkd-49-vya"/>
+                                </constraints>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Mvr-aV-6Um" firstAttribute="top" secondItem="y5Y-X1-Isf" secondAttribute="bottom" constant="80" id="1oD-Ny-zO1"/>
+                            <constraint firstItem="y5Y-X1-Isf" firstAttribute="leading" secondItem="TpU-gO-2f1" secondAttribute="leading" constant="10" id="8yK-oz-RZK"/>
+                            <constraint firstAttribute="trailing" secondItem="y5Y-X1-Isf" secondAttribute="trailing" constant="10" id="tUf-8o-vlw"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="0dg-iC-mPV"/>
+                    <connections>
+                        <outlet property="resultTextView" destination="y5Y-X1-Isf" id="0KK-Wr-Hox"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tc2-Qw-aMS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -56,4 +84,12 @@
             <point key="canvasLocation" x="304.80000000000001" y="432.23388305847078"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>

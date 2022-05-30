@@ -10,7 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol FUScanCodeDelegate <NSObject>
+
+- (void)scanViewController:(UIViewController *)scanVC recognizeResult:(NSString *)recognizeResult;
+
+@end
+
 @interface FUScanCodeViewController : UIViewController
+
+@property (nonatomic, weak) id<FUScanCodeDelegate> delegate;
 
 @end
 

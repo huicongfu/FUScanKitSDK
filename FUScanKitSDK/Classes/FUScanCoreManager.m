@@ -8,6 +8,7 @@
 
 #import "FUScanCoreManager.h"
 #import "UIDevice+FUAddition.h"
+#import <ScanKitFrameWork/ScanKitFrameWork.h>
 
 @interface FUScanCoreManager ()<AVCaptureVideoDataOutputSampleBufferDelegate>
 
@@ -119,8 +120,45 @@
     [self.captureSession stopRunning];
 }
 
+- (void)stopCapture {
+    self.decoding = NO;
+    [self.captureSession stopRunning];
+    AVCaptureInput * input = [self.captureSession.inputs firstObject];
+    [self.captureSession removeInput:input];
+    AVCaptureVideoDataOutput * output = (AVCaptureVideoDataOutput *)[self.captureSession.outputs firstObject];
+    [output setSampleBufferDelegate:nil queue:NULL];
+    [self.captureSession removeOutput:output];
+    [self.previewLayer removeFromSuperlayer];
+//    self.previewLayer = nil;
+    self.captureSession = nil;
+}
+
+#pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
+- (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
+    HmsScanOptions * scanOptions = [[HmsScanOptions alloc] initWithScanFormatType:ALL Photo:NO];
+    NSDictionary * resultDict = [HmsBitMap bitMapForSampleBuffer:sampleBuffer withOptions:scanOptions];
+    NSString * resultStr = resultDict[@"text"];
+    if (resultStr && resultStr.length > 0) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self handleScanResult:resultStr];
+        });
+    } else {
+        
+    }
+}
+
+- (void)handleScanResult:(NSString *)result {
+    if (self.resultBlock) {
+        self.resultBlock(result);
+    }
+}
+
 - (void)dealloc {
     NSLog(@"dealloc");
+//    [self stopCapture];
+//    if (_decodeQueue != NULL) {
+//        _decodeQueue = NULL;
+//    }
 }
 
 @end
