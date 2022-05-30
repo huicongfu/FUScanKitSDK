@@ -15,10 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, retain) AVCaptureVideoPreviewLayer * previewLayer;
 
-@property (nonatomic, assign) CGRect scanRect;
-
-@property (nonatomic, assign) UIInterfaceOrientation curOrientaion;
-
 @property (nonatomic, copy) void(^resultBlock)(NSString * resultString);
 
 - (void)initCaptureView:(UIView *)view;

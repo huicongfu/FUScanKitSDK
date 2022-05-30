@@ -31,10 +31,6 @@
 @property (nonatomic, retain) UILabel * labPrompt;
 
 @property (nonatomic, retain) FUScanCoreManager * scanCoreManager;
-@property (nonatomic, assign) CGRect scanRect;
-///是否横屏，YES:横屏屏；NO:竖屏
-@property (nonatomic, assign) BOOL isLandScapeMode;
-@property (nonatomic, assign)UIInterfaceOrientation preUIInterfaceOrientation;
 
 @property (nonatomic, assign) SystemSoundID beepSound;
 
@@ -44,7 +40,18 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.preUIInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    __weak typeof(self) weakSelf = self;
+    [self checkCameraAuthorization:^(BOOL granted) {
+        if (granted) {
+            [weakSelf.scanCoreManager startSession];
+        } else {
+            [weakSelf showNoCameraAuthorizationAlert];
+        }
+    }];
     
 }
 
@@ -63,26 +70,22 @@
     [self.view addSubview:self.captureContainerView];
 
     [self createBottomViewUI];
-    [self initScanCoreManager];
+    
     __weak typeof(self) weakSelf = self;
     [self checkCameraAuthorization:^(BOOL granted) {
         if (granted) {
-            [weakSelf.scanCoreManager startSession];
+            [weakSelf initScanCoreManager];
         } else {
             [weakSelf showNoCameraAuthorizationAlert];
         }
     }];
-    
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didChangeRotate:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
 }
 
 - (void)initScanCoreManager {
     if (!self.scanCoreManager) {
         self.scanCoreManager = [[FUScanCoreManager alloc] init];
     }
-    self.scanCoreManager.scanRect = self.scanRect;
     [self.scanCoreManager initCaptureView:self.captureContainerView];
-    self.scanCoreManager.curOrientaion = [UIApplication sharedApplication].statusBarOrientation;
     __weak typeof(self) weakSelf = self;
     self.scanCoreManager.resultBlock = ^(NSString * _Nonnull resultString) {
         NSLog(@"%@", resultString);
@@ -228,15 +231,6 @@
     }
 }
 
-- (void)didChangeRotate:(NSNotification*)notifi {
-    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-    if (self.preUIInterfaceOrientation == orientation) {
-        return;
-    }
-    self.preUIInterfaceOrientation = orientation;
-    
-}
-
 - (void)playBeepSound {
     if (self.beepSound != -1) {
         if (self.hasShake) {
@@ -284,58 +278,6 @@
 
 - (CGFloat)getBottomHeight{
     return [UIDevice safeDistanceBottom]+96;
-}
-
-- (BOOL)isLandScapeMode{
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
-        //横屏
-        _isLandScapeMode = YES;
-    }
-    if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown ) {
-        //竖屏
-        _isLandScapeMode = NO;
-    }
-    return _isLandScapeMode;
-}
-
-/**
- *  扫描范围
- */
-- (CGRect)scanRect
-{
-    if (CGRectEqualToRect(_scanRect,CGRectZero)) {
-        if ([UIDevice getIsIpad]) {
-            if (self.isLandScapeMode) {
-                //横屏
-                _scanRect = [self getScanRectWhenInLandscape];
-            }else{
-                //竖屏
-                _scanRect = [self getScanRectWhenInProtation];
-            }
-        } else {
-            _scanRect = [self getScanRect];
-        }
-    }
-    return _scanRect;
-}
-
-- (CGRect)getScanRect {
-    CGFloat captureWidth = [UIApplication sharedApplication].keyWindow.bounds.size.width;
-    CGFloat captureHeight = [UIApplication sharedApplication].keyWindow.bounds.size.height - [self getBottomHeight] - [UIDevice navigationFullHeight];
-    return CGRectMake((captureWidth - 300)/2.0, (captureHeight - 300)/2.0, 300, 300);
-}
-
-- (CGRect)getScanRectWhenInLandscape {
-    CGFloat windowWidth = [UIApplication sharedApplication].keyWindow.bounds.size.width;
-    CGFloat windowHeight = [UIApplication sharedApplication].keyWindow.bounds.size.height - [self getBottomHeight] - [UIDevice navigationFullHeight];
-    return CGRectMake((windowWidth - 300)/2, (windowHeight - 300)/2, 300, 300);
-}
-
-- (CGRect)getScanRectWhenInProtation {
-    CGFloat captureWidth = [UIApplication sharedApplication].keyWindow.bounds.size.width;
-    CGFloat captureHeight = [UIApplication sharedApplication].keyWindow.bounds.size.height - [self getBottomHeight] - [UIDevice navigationFullHeight];
-    return CGRectMake((captureWidth - 300)/2.0, (captureHeight - 300)/2.0, 300, 300);
 }
 
 - (void)checkCameraAuthorization:(void (^)(BOOL granted))completionHandler {
