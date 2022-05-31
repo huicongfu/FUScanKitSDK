@@ -97,12 +97,10 @@ EOM
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/FUScanKitSDK/ScanKitFrameWorkBundle.bundle"
-  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/FUScanKitSDK/FUScanKitSDKBundle.bundle"
+  install_resource "${PODS_ROOT}/ScanKitFrameWork/ScanKitFrameWorkBundle.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/FUScanKitSDK/ScanKitFrameWorkBundle.bundle"
-  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/FUScanKitSDK/FUScanKitSDKBundle.bundle"
+  install_resource "${PODS_ROOT}/ScanKitFrameWork/ScanKitFrameWorkBundle.bundle"
 fi
 
 mkdir -p "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

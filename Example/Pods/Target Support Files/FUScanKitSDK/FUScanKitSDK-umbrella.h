@@ -10,12 +10,11 @@
 #endif
 #endif
 
-#import "HmsBitMap.h"
-#import "HmsCustomScanViewController.h"
-#import "HmsDefaultScanViewController.h"
-#import "HmsMultiFormatWriter.h"
-#import "HmsScanFormat.h"
-#import "ScanKitFrameWork.h"
+#import "FULanguageManager.h"
+#import "FUScanCodeViewController.h"
+#import "FUScanCoreManager.h"
+#import "FUScanKitSDKBundle.h"
+#import "UIDevice+FUAddition.h"
 
 FOUNDATION_EXPORT double FUScanKitSDKVersionNumber;
 FOUNDATION_EXPORT const unsigned char FUScanKitSDKVersionString[];

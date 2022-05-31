@@ -30,16 +30,16 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '9.0'
 
-  s.vendored_frameworks = 'FUScanKitSDK/HWScanKitSDK/ScanKitFrameWork.framework'
+#  s.vendored_frameworks = 'FUScanKitSDK/HWScanKitSDK/ScanKitFrameWork.framework'
   s.source_files = 'FUScanKitSDK/Classes/**/*'
   
   s.resource_bundles = {
-     'ScanKitFrameWorkBundle' => ['FUScanKitSDK/HWScanKitSDK/ScanKitFrameWorkBundle.bundle'],
+#     'ScanKitFrameWorkBundle' => ['FUScanKitSDK/HWScanKitSDK/ScanKitFrameWorkBundle.bundle'],
      'FUScanKitSDKBundle' => ['FUScanKitSDK/Assets/**/*']
   }
 
-  s.public_header_files = 'FUScanKitSDK/HWScanKitSDK/ScanKitFrameWork.framework/Headers/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
+#  s.public_header_files = 'FUScanKitSDK/HWScanKitSDK/ScanKitFrameWork.framework/Headers/*.h'
+#  s.frameworks = 'AVFoundation', 'CoreImage', 'CoreGraphics', 'QuartzCore', 'Accelerate', 'CoreVideo', 'CoreMedia', 'AssetsLibrary'
   s.dependency 'Masonry', '~> 1.1.0'
-#  s.dependency 'ScanKitFrameWork', '~> 1.1.0.302'
+  s.dependency 'ScanKitFrameWork', '~> 1.1.0.302'
 end

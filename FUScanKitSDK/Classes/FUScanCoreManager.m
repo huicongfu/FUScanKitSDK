@@ -105,20 +105,6 @@
     }
 }
 
-- (void)stopCapture {
-    if (_captureSession.isRunning) {
-        [_captureSession stopRunning];
-    }
-    AVCaptureInput * input = [self.captureSession.inputs firstObject];
-    [self.captureSession removeInput:input];
-    AVCaptureVideoDataOutput * output = (AVCaptureVideoDataOutput *)[self.captureSession.outputs firstObject];
-    [output setSampleBufferDelegate:nil queue:NULL];
-    [self.captureSession removeOutput:output];
-    [self.previewLayer removeFromSuperlayer];
-//    self.previewLayer = nil;
-    self.captureSession = nil;
-}
-
 #pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
 - (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
     @autoreleasepool {
@@ -154,8 +140,11 @@
 }
 
 - (void)dealloc {
-    NSLog(@"dealloc");
-//    [self stopCapture];
+    NSLog(@"fuscancoremannager - dealloc");
+    [self.captureSession removeInput:self.captureDeviceInput];
+    self.captureSession = nil;
+    self.captureDeviceInput = nil;
+    self->stillVideoDataOutput = nil;
 //    if (_decodeQueue != NULL) {
 //        _decodeQueue = NULL;
 //    }

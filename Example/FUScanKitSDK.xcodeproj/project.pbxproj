@@ -291,6 +291,7 @@
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
 				09B01DE1065D18A8B034B576 /* [CP] Embed Pods Frameworks */,
+				2967F6305D3F44041D61F8B4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -399,19 +400,37 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FUScanKitSDK_Example/Pods-FUScanKitSDK_Example-frameworks.sh",
-				"${PODS_ROOT}/../../FUScanKitSDK/HWScanKitSDK/ScanKitFrameWork.framework",
 				"${BUILT_PRODUCTS_DIR}/FUScanKitSDK/FUScanKitSDK.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${PODS_ROOT}/ScanKitFrameWork/ScanKitFrameWork.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ScanKitFrameWork.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FUScanKitSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ScanKitFrameWork.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FUScanKitSDK_Example/Pods-FUScanKitSDK_Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2967F6305D3F44041D61F8B4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FUScanKitSDK_Example/Pods-FUScanKitSDK_Example-resources.sh",
+				"${PODS_ROOT}/ScanKitFrameWork/ScanKitFrameWorkBundle.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ScanKitFrameWorkBundle.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FUScanKitSDK_Example/Pods-FUScanKitSDK_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2A55CA138A64B8F52598E3AC /* [CP] Check Pods Manifest.lock */ = {

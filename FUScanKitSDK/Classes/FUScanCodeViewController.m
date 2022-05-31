@@ -64,6 +64,7 @@
 }
 
 - (void)createUI {
+    self.view.backgroundColor = [UIColor blackColor];
     CGFloat bottomHeight = [self getBottomHeight];
     self.captureContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - bottomHeight)];
     self.captureContainerView.backgroundColor = [UIColor clearColor];
