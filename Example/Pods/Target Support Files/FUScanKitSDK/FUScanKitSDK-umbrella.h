@@ -14,6 +14,7 @@
 #import "FUScanCodeViewController.h"
 #import "FUScanCoreManager.h"
 #import "FUScanKitSDKBundle.h"
+#import "FUScanResultModel.h"
 #import "UIDevice+FUAddition.h"
 
 FOUNDATION_EXPORT double FUScanKitSDKVersionNumber;

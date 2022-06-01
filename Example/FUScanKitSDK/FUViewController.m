@@ -28,9 +28,9 @@
     [self.navigationController pushViewController:scanCodeVC animated:YES];
 }
 
-- (void)scanViewController:(UIViewController *)scanVC recognizeResult:(NSString *)recognizeResult {
+- (void)scanViewController:(UIViewController *)scanVC recognizeResult:(FUScanResultModel *)resultModel {
     self.resultTextView.text = nil;
-    self.resultTextView.text = recognizeResult;
+    self.resultTextView.text = resultModel.text;
 }
 
 - (IBAction)defaultViewButtonAction:(UIButton *)sender {

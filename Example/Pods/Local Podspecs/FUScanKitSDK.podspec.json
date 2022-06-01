@@ -30,6 +30,9 @@
     ],
     "ScanKitFrameWork": [
       "~> 1.1.0.302"
+    ],
+    "MJExtension": [
+      "3.4.1"
     ]
   }
 }

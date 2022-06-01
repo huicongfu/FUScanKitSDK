@@ -9,6 +9,7 @@
 #import "FUScanCoreManager.h"
 #import "UIDevice+FUAddition.h"
 #import <ScanKitFrameWork/ScanKitFrameWork.h>
+#import <MJExtension/MJExtension.h>
 
 @interface FUScanCoreManager ()<AVCaptureVideoDataOutputSampleBufferDelegate>
 {
@@ -111,7 +112,7 @@
         if (output == stillVideoDataOutput) {
             CFRetain(sampleBuffer);
             HmsScanOptions * scanOptions = [[HmsScanOptions alloc] initWithScanFormatType:ALL Photo:NO];
-            resultList = [HmsBitMap multiDecodeBitMapForSampleBuffer:sampleBuffer withOptions:nil];
+            resultList = [HmsBitMap multiDecodeBitMapForSampleBuffer:sampleBuffer withOptions:scanOptions];
             if (resultList.count == 0) {
                 CFRelease(sampleBuffer);
                 return;
@@ -120,10 +121,10 @@
                 [_captureSession stopRunning];
             }
             NSDictionary * resultDict = resultList.firstObject;
-            NSString * resultStr = resultDict[@"text"];
-            if (resultStr && resultStr.length > 0) {
+            FUScanResultModel * model = [FUScanResultModel mj_objectWithKeyValues:resultDict];
+            if (model) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self handleScanResult:resultStr];
+                    [self handleScanResult:model];
                 });
             } else {
                 NSLog(@"无效扫码结果");
@@ -133,7 +134,25 @@
     }
 }
 
-- (void)handleScanResult:(NSString *)result {
+- (NSArray<FUScanResultModel *> *)multipleResultParseImage:(UIImage *)image {
+    if (!image) {
+        return nil;
+    }
+    NSArray * resultArr = [HmsBitMap multiDecodeBitMapForImage:image withOptions:[[HmsScanOptions alloc] initWithScanFormatType:ALL Photo:YES]];
+    resultArr = [FUScanResultModel mj_objectArrayWithKeyValuesArray:resultArr];
+    return resultArr;
+}
+
+- (FUScanResultModel *)parseIamge:(UIImage *)image {
+    if (!image) {
+        return nil;
+    }
+    NSDictionary * resultDict = [HmsBitMap bitMapForImage:image withOptions:[[HmsScanOptions alloc] initWithScanFormatType:ALL Photo:YES]];
+    FUScanResultModel * model = [FUScanResultModel mj_objectWithKeyValues:resultDict];
+    return model;
+}
+
+- (void)handleScanResult:(FUScanResultModel *)result {
     if (self.resultBlock) {
         self.resultBlock(result);
     }
@@ -145,9 +164,9 @@
     self.captureSession = nil;
     self.captureDeviceInput = nil;
     self->stillVideoDataOutput = nil;
-//    if (_decodeQueue != NULL) {
-//        _decodeQueue = NULL;
-//    }
+    if (_decodeQueue != NULL) {
+        _decodeQueue = NULL;
+    }
 }
 
 @end

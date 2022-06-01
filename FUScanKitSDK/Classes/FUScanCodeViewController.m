@@ -13,7 +13,6 @@
 #import "FULanguageManager.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AVFoundation/AVFoundation.h>
-#import "FUScanCoreManager.h"
 
 #define FUScanCodeLanguage(key) [FULanguageManager localizedStringForKey:(key) value:key table:(@"FUScanKitSDKLanguage") bundle:[FUScanKitSDKBundle FUScanKitSDKBundle]]
 
@@ -88,21 +87,20 @@
     }
     [self.scanCoreManager initCaptureView:self.captureContainerView];
     __weak typeof(self) weakSelf = self;
-    self.scanCoreManager.resultBlock = ^(NSString * _Nonnull resultString) {
-        NSLog(@"%@", resultString);
+    self.scanCoreManager.resultBlock = ^(FUScanResultModel * _Nonnull resultModel) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
-        if (resultString.length <= 0) {
+        if (resultModel.text.length <= 0) {
             return;
         }
-        [strongSelf handleScanResult:resultString];
+        [strongSelf handleScanResult:resultModel];
         [weakSelf.scanCoreManager stopSession];
     };
 }
 
-- (void)handleScanResult:(NSString *)scanResult {
+- (void)handleScanResult:(FUScanResultModel *)resultModel {
     [self playBeepSound];
     if ([self.delegate respondsToSelector:@selector(scanViewController:recognizeResult:)]) {
-        [self.delegate scanViewController:self recognizeResult:scanResult];
+        [self.delegate scanViewController:self recognizeResult:resultModel];
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
@@ -199,13 +197,20 @@
     picker.mediaTypes = @[(NSString *)kUTTypeImage];
     picker.allowsEditing = NO;
     picker.delegate = self;
-    if (@available(iOS 13.0, *)) {
-        picker.modalPresentationStyle = UIModalPresentationFullScreen;
-    }
+    picker.modalPresentationStyle = UIModalPresentationFullScreen;
+    __weak typeof(self) weakSelf = self;
     [self presentViewController:picker animated:YES completion:^{
-        
+        [weakSelf.scanCoreManager stopSession];
     }];
 
+}
+
+#pragma mark -
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info {
+    UIImage * getImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+    FUScanResultModel * model = [self.scanCoreManager parseIamge:getImage];
+    [self handleScanResult:model];
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)btnLight:(UIButton *)sender {

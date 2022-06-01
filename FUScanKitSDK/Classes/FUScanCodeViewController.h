@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FUScanCoreManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol FUScanCodeDelegate <NSObject>
 
-- (void)scanViewController:(UIViewController *)scanVC recognizeResult:(NSString *)recognizeResult;
+- (void)scanViewController:(UIViewController *)scanVC recognizeResult:(FUScanResultModel *)resultModel;
 
 @end
 

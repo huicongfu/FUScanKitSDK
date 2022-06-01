@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
+#import "FUScanResultModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, retain) AVCaptureVideoPreviewLayer * previewLayer;
 
-@property (nonatomic, copy) void(^resultBlock)(NSString * resultString);
+@property (nonatomic, copy) void(^resultBlock)(FUScanResultModel * resultModel);
 
 - (void)initCaptureView:(UIView *)view;
 
@@ -28,6 +29,14 @@ NS_ASSUME_NONNULL_BEGIN
  停止扫描预览画面
  */
 - (void)stopSession;
+
+/// 解析图片二维码，可以返回多个结果
+/// @param image 要解析的图片
+- (NSArray<FUScanResultModel *> *)multipleResultParseImage:(UIImage *)image;
+
+/// 解析图片二维码，返回单个结果
+/// @param image 要解析的图片
+- (FUScanResultModel *)parseIamge:(UIImage *)image;
 
 @end
 

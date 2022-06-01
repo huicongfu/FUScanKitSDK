@@ -42,4 +42,5 @@ Pod::Spec.new do |s|
 #  s.frameworks = 'AVFoundation', 'CoreImage', 'CoreGraphics', 'QuartzCore', 'Accelerate', 'CoreVideo', 'CoreMedia', 'AssetsLibrary'
   s.dependency 'Masonry', '~> 1.1.0'
   s.dependency 'ScanKitFrameWork', '~> 1.1.0.302'
+  s.dependency 'MJExtension', '3.4.1'
 end

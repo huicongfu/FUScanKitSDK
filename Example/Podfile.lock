@@ -6,8 +6,10 @@ PODS:
     - FBSnapshotTestCase/Core
   - FUScanKitSDK (0.1.0):
     - Masonry (~> 1.1.0)
+    - MJExtension (= 3.4.1)
     - ScanKitFrameWork (~> 1.1.0.302)
   - Masonry (1.1.0)
+  - MJExtension (3.4.1)
   - ScanKitFrameWork (1.1.0.302)
 
 DEPENDENCIES:
@@ -16,6 +18,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - MJExtension
     - ScanKitFrameWork
   trunk:
     - FBSnapshotTestCase
@@ -27,8 +30,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
-  FUScanKitSDK: 3212dba1baccacfdbb021c3f1c809efacfda4427
+  FUScanKitSDK: 410724363fbce8f427527ff4ed263d3d18f4f718
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MJExtension: 21c5f6f8c4d5d8844b7ae8fbae08fed0b501f961
   ScanKitFrameWork: e41cfd717fad1f1b35f08e923098f4806b81ead8
 
 PODFILE CHECKSUM: 7f26b0123ffca65a0beca13af040c5c886d705de
