@@ -127,7 +127,7 @@
     self.btnAlbum.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [self.btnAlbum addTarget:self action:@selector(btnPhoto:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIImage *albumImage = [UIImage imageNamed:@"QRCScan_Album"];//[FUScanKitSDKBundle FUScanKitBundleImage:@"QRCScan_Album"];
+    UIImage *albumImage = [FUScanKitSDKBundle FUScanKitBundleImage:@"QRCScan_Album"];
     [self.btnAlbum setImage:albumImage forState:UIControlStateNormal];
     [self.btnAlbum mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(76);
